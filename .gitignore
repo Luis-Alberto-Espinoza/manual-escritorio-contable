@@ -1,0 +1,17 @@
+# Este repo es PÚBLICO (GitHub Pages). Se ignora todo y se habilita solo lo que
+# el manual necesita: un archivo nuevo en la raíz NO se sube si no está en esta lista.
+/*
+!/.gitignore
+!/LICENSE
+!/index.html
+!/estilos.css
+!/manual.js
+!/tutoriales.js
+!/capturas/
+
+# Capturas originales: pueden tener datos reales. Nunca subirlas.
+Captura*
+Screenshot*
+
+# Captura que el manual no usa
+/capturas/app/pdf_individual_elegido.png

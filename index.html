@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
+    <title>Manual de uso — Escritorio Contable</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<button type="button" class="btn-indice" id="btnIndice" aria-controls="lateralIzq" aria-expanded="false">☰ Índice</button>
+<button type="button" class="btn-tips" id="btnTips" aria-controls="lateralDer" aria-expanded="false">💡 Tips</button>
+
+<!-- Tutoriales visuales: lista desplegable; el visor lo arma tutoriales.js. -->
+<div class="tutoriales">
+    <button type="button" class="btn-tutoriales" id="btnTutoriales" aria-controls="listaTutoriales" aria-expanded="false">🎬 Tutoriales</button>
+    <div class="lista-tutoriales" id="listaTutoriales" hidden></div>
+</div>
+
+<!-- Buscador: barra fija arriba, aparte del índice y los tips (siempre a la vista). -->
+<div class="barra-busqueda" id="barraBusqueda" role="search">
+    <div class="buscador">
+        <label for="buscar" class="solo-lector">Buscar en el manual</label>
+        <input type="search" id="buscar" placeholder="🔎 Buscar…" title="Buscar en el manual (ej.: clave, captcha, Excel)" autocomplete="off"
+               aria-controls="resultados">
+        <div class="resultados" id="resultados" hidden></div>
+    </div>
+</div>
+
+<div class="layout">
+
+<aside class="lateral lateral-izq" id="lateralIzq">
+    <nav class="indice" id="indice" aria-label="Índice">
+        <p class="indice-titulo">Contenido</p>
+        <p>Parte 1. Para todos</p>
+        <ol>
+            <li><a href="#que-es">¿Qué es y qué problema resuelve?</a></li>
+            <li><a href="#instalacion">Instalación y dónde quedan tus datos</a></li>
+            <li><a href="#primer-cliente">Cargar el primer cliente</a></li>
+            <li><a href="#validar">Validar las credenciales</a></li>
+            <li><a href="#datos-registrales">Primer servicio: Datos registrales</a></li>
+        </ol>
+        <p>Parte 2. Para el operario: muchos clientes</p>
+        <ol start="6">
+            <li><a href="#carga-masiva">Carga masiva de clientes desde Excel</a></li>
+            <li><a href="#analizar">Analizar cada cliente</a></li>
+            <li><a href="#organizar">Organizar la cartera</a></li>
+        </ol>
+        <p>Parte 3. Recorridos cortos opcionales</p>
+        <ol start="9">
+            <li><a href="#consulta-comprobantes">Consulta de comprobantes emitidos</a></li>
+            <li><a href="#apremios">ATM: Apremios</a></li>
+        </ol>
+        <p>Parte 4. Herramientas de oficina (sin claves)</p>
+        <ol start="11">
+            <li><a href="#pdf-excel">PDF a Excel: resúmenes bancarios y formularios</a></li>
+            <li><a href="#plantillas-excel">Plantillas Excel</a></li>
+        </ol>
+        <p>Parte 5. Cuando algo sale mal</p>
+        <ol start="13">
+            <li><a href="#problemas">Problemas comunes</a></li>
+        </ol>
+    </nav>
+</aside>
+
+<main class="contenido">
+
+    <header>
+        <h1>Manual de uso — Escritorio Contable</h1>
+        <p class="bajada">
+            Guía para quien usa la aplicación por primera vez: un operario contable que
+            maneja muchos clientes, o un monotributista que se maneja solo.
+            Escritorio Contable hace solo los trámites de AFIP y ATM, y además tiene
+            herramientas para pasar PDF y planillas a Excel. No hace falta saber de
+            programación.
+        </p>
+    </header>
+
+
+    <!-- ===================== PARTE 1 ===================== -->
+
+    <section id="que-es"
+             data-claves="para qué sirve, qué hace, automatizar, robot, pantalla de inicio, menú, barra, qué querés hacer, buscador de la app, ctrl+k, atajo, sesión afip, sesión atm, por dónde empiezo">
+        <h2>1. ¿Qué es y qué problema resuelve?</h2>
+        <p><strong>El problema:</strong> en un estudio con muchos clientes se pasan
+            horas entrando a AFIP y a ATM con una clave, después con otra, para hacer
+            siempre los mismos trámites. Y encima hay que pasar a mano resúmenes
+            bancarios y planillas.</p>
+
+        <h3>Las dos mitades de la aplicación</h3>
+        <ol>
+            <li><strong>Trámites automáticos en AFIP y ATM.</strong> Elegís uno o muchos
+                clientes y el trámite. La aplicación abre el navegador, entra con la clave
+                de cada cliente, hace el trámite y guarda lo que baja en una carpeta por
+                cliente. Por ejemplo: facturar, generar un VEP, bajar los datos
+                registrales o las declaraciones juradas, y en ATM las constancias o los
+                apremios.</li>
+            <li><strong>Herramientas de oficina.</strong> No entran a ninguna página ni
+                piden claves: <a href="#pdf-excel">sacar a Excel las tablas de resúmenes
+                bancarios y de formularios de AFIP y ATM en PDF</a> y <a href="#plantillas-excel">Plantillas Excel</a>.</li>
+        </ol>
+
+        <h3>Qué hace sola y qué hacés vos</h3>
+        <ul>
+            <li><strong>La aplicación:</strong> entra a la página, completa los
+                formularios, pasa de un cliente al siguiente y descarga los archivos.</li>
+            <li><strong>Vos:</strong> cargás los clientes y sus claves, elegís a quién y
+                qué hacerle, revisás los resultados y resolvés lo que la página pide a una
+                persona, como el captcha.</li>
+        </ul>
+
+        <h3>La pantalla de inicio</h3>
+        <p>Arriba está la barra con los botones de siempre: <strong>AFIP ▾</strong> y
+            <strong>ATM ▾</strong> (despliegan sus trámites), <strong>Clientes</strong>,
+            <strong>PDF</strong>, <strong>Plantillas Excel</strong>,
+            <strong>Historial</strong> y, a la derecha, <strong>📁</strong> (la
+            <a href="#instalacion">carpeta de datos</a>) y <strong>⟳ Recargar</strong>.</p>
+        <p>En el centro está el buscador <strong>¿Qué querés hacer?</strong>. Escribí lo
+            que buscás y te ofrece:</p>
+        <ul>
+            <li><strong>Servicios</strong>: por ejemplo "ddjj", "iva" o "factura".</li>
+            <li><strong>Clientes</strong>, por nombre o CUIT (desde 2 letras). Cada uno
+                trae sus botones <strong>🚀 Sesión AFIP</strong>, <strong>🚀 Sesión
+                ATM</strong> y <strong>✏️ Editar</strong>.</li>
+        </ul>
+        <figure>
+            <img src="capturas/app/inicio_buscador.png"
+                 alt="Pantalla de inicio con la barra de botones arriba y el buscador Qué querés hacer, donde se escribió cliente y aparece el servicio Clientes.">
+            <figcaption>El buscador de la pantalla de inicio: escribiendo "cliente"
+                aparece el servicio <strong>Clientes</strong>.</figcaption>
+        </figure>
+        <p>La aplicación arranca en una ventana chica, donde el botón
+            <strong>Recargar</strong> queda cortado a la derecha.</p>
+        <figure>
+            <img src="capturas/app/inicio_ventana_chica.png"
+                 alt="Pantalla de inicio en la ventana chica: la barra de botones arriba, con Recargar cortado a la derecha, y el buscador vacío en el centro.">
+            <figcaption>Así arranca la aplicación: en la ventana chica el botón
+                <strong>Recargar</strong> no entra entero.</figcaption>
+        </figure>
+        <p>Agrandala o maximizala para verlo todo.</p>
+        <figure>
+            <img src="capturas/app/inicio_maximizada.png"
+                 alt="Pantalla de inicio con la ventana maximizada: la barra completa con AFIP, ATM, Clientes, PDF, Plantillas Excel, Historial, el botón de la carpeta y Recargar, y el buscador vacío.">
+            <figcaption>Con la ventana maximizada se ve la barra completa.</figcaption>
+        </figure>
+        <div class="tip">Desde cualquier pantalla, <strong>Ctrl+K</strong> abre el mismo
+            buscador en una ventanita. Ctrl+K de nuevo o Esc la cierran. Es la forma más
+            rápida de saltar a un trámite o a un cliente.</div>
+
+        <h3>Por dónde empezar</h3>
+        <ol>
+            <li>Leé dónde quedan tus datos (<a href="#instalacion">sección 2</a>).</li>
+            <li>Cargá un cliente (<a href="#primer-cliente">sección 3</a>) o muchos
+                (<a href="#carga-masiva">sección 6</a>).</li>
+            <li>Probá su clave (<a href="#validar">sección 4</a>).</li>
+            <li>Hacé tu primer trámite, sin riesgo: <a href="#datos-registrales">Datos
+                registrales</a> (sección 5).</li>
+        </ol>
+    </section>
+
+    <section id="instalacion"
+             data-claves="instalar, instalación, descargar, portable, exe, windows, pendrive, chrome, edge, navegador, windows protegió su pc, smartscreen, ejecutar de todas formas, tarda en abrir, lento, carpeta, carpeta de datos, gestor_afip_atm_datos, descargas, dónde se guarda, dónde quedan los archivos, logs, cambiar carpeta, actualizar, versión nueva, respaldo, backup, copia de seguridad">
+        <h2>2. Instalación y dónde quedan tus datos</h2>
+
+        <h3>No se instala</h3>
+        <p>La aplicación es un <strong>solo archivo <code>.exe</code></strong> (un
+            programa <em>portable</em>) y funciona <strong>solo en Windows</strong>. No
+            tiene instalador: lo copiás a una carpeta de la compu o a un pendrive y lo
+            abrís con doble clic.</p>
+        <p>Necesita <strong>Google Chrome</strong> o <strong>Microsoft Edge</strong> en la
+            compu, porque los usa para entrar a AFIP y a ATM. Edge ya viene con Windows,
+            así que casi siempre está. Si no encuentra ninguno, avisa:
+            <strong>"Instala Google Chrome o Microsoft Edge para usar esta
+            aplicación."</strong></p>
+
+        <h3>La primera vez: "Windows protegió su PC"</h3>
+        <p>La primera vez que lo abrís, Windows puede mostrar un cartel azul que dice
+            <strong>Windows protegió su PC</strong>. Aparece con los programas que no
+            tienen firma digital de una empresa; no quiere decir que tenga un virus.</p>
+        <ol>
+            <li>Hacé clic en <strong>Más información</strong>.</li>
+            <li>Aparece el botón <strong>Ejecutar de todas formas</strong>: hacé clic.</li>
+        </ol>
+        <p>Desde ahí el programa abre normalmente.</p>
+        <div class="tip">El programa tarda unos segundos en abrir, aunque esté en el
+            disco de la compu y no en un pendrive. Es normal: cada vez que arranca se
+            prepara solo. No hagas doble clic de nuevo; esperá.</div>
+
+        <h3>Tus datos: la carpeta <code>gestor_afip_atm_datos</code></h3>
+        <p>La primera vez que abrís el programa, se crea sola una carpeta
+            <code>gestor_afip_atm_datos</code> <strong>al lado del <code>.exe</code></strong>.
+            Ahí se guarda todo lo que cargás: los clientes con sus claves, los estudios,
+            el historial y los registros de lo que hizo el programa (<em>logs</em>).</p>
+        <p>Si tenés el programa en un pendrive, los datos viajan con él: lo enchufás en
+            otra compu y están todos tus clientes.</p>
+        <div class="tip importante">Esa carpeta tiene las <strong>claves de todos tus
+            clientes</strong>. No la borres (perdés todo) y cuidá el pendrive como
+            cuidarías los papeles de los clientes.</div>
+
+        <h3>Tus archivos descargados: otra carpeta</h3>
+        <p>Los PDF y Excel que baja cada servicio <strong>no</strong> van a la carpeta de
+            datos. Van a la carpeta <strong>Descargas</strong> de la compu donde estás
+            trabajando, dentro de <code>gestor_afip_atm</code>, con una carpeta por
+            cliente. Por ejemplo:</p>
+        <p><code>Descargas\gestor_afip_atm\20123456789_Rivadavia_Bernardino\archivos_afip\</code></p>
+        <ul>
+            <li><code>gestor_afip_atm_datos</code> (al lado del programa): lo que
+                <strong>cargás vos</strong>. Es lo que hay que cuidar.</li>
+            <li><code>Descargas\gestor_afip_atm</code> (en la compu): lo que
+                <strong>baja la aplicación</strong>. Si trabajás desde un pendrive, estos
+                archivos quedan en la compu, no en el pendrive.</li>
+        </ul>
+
+        <h3>Ver o cambiar la carpeta de datos</h3>
+        <p>En la barra de arriba, a la derecha, está el botón <strong>📁</strong>
+            (<strong>Carpeta de datos</strong>). Abre una ventana que muestra dónde están
+            tus datos; normalmente dice <strong>Al lado del programa</strong>.</p>
+        <figure>
+            <img src="capturas/app/barra_carpeta_datos.png"
+                 alt="Barra de arriba de la aplicación con el mouse sobre el botón de la carpeta, que muestra el cartel Carpeta de datos.">
+            <figcaption>El botón 📁 de la barra de arriba, a la izquierda de
+                <strong>Recargar</strong>.</figcaption>
+        </figure>
+        <ul>
+            <li><strong>📂 Abrir carpeta</strong>: abre la carpeta de datos en Windows.</li>
+            <li><strong>📄 Abrir logs</strong>: abre los registros, un archivo por día.
+                Sirven si algo falla y alguien te pide "mandame el log".</li>
+            <li><strong>Cambiar carpeta…</strong>: para guardar los datos en otro lugar,
+                por ejemplo una carpeta tuya en el disco.</li>
+            <li><strong>Por defecto</strong>: vuelve a guardarlos al lado del programa.</li>
+        </ul>
+        <p>Después de <strong>Cambiar carpeta…</strong> o <strong>Por defecto</strong>
+            aparece <strong>✅ Guardado. Hay que reiniciar para que el programa lea la
+            carpeta nueva.</strong> Hacé clic en <strong>Reiniciar ahora</strong>.</p>
+        <div class="aviso">Cambiar la carpeta <strong>no mueve</strong> tus datos: el
+            programa empieza a leer de la carpeta nueva. Si querés llevarte los clientes,
+            copiá antes el contenido de la carpeta vieja a la nueva. Y la elección
+            vale solo para esa compu: si llevás el pendrive a otra, ahí vuelve a usar la
+            carpeta de al lado del programa.</div>
+
+        <h3>Copia de respaldo</h3>
+        <p>Hay dos formas, y conviene hacer alguna de vez en cuando:</p>
+        <ul>
+            <li>Copiar la carpeta <code>gestor_afip_atm_datos</code> entera a otro lado
+                (otro pendrive, otro disco).</li>
+            <li>Exportar los clientes a Excel con <strong>⬆️ Exportar a Excel</strong>
+                (<a href="#organizar">sección 8</a>).</li>
+        </ul>
+        <div class="tip">¿Salió una versión nueva del programa? Reemplazá solo el
+            <code>.exe</code> y dejá la carpeta <code>gestor_afip_atm_datos</code> donde
+            está, al lado. El programa nuevo la encuentra y sigue con tus clientes.</div>
+    </section>
+
+    <section id="primer-cliente"
+             data-claves="alta, agregar, nuevo cliente, cuit, cuil, contraseña, clave fiscal, password, representante, representado, monotributista, responsable inscripto">
+        <h2>3. Cargar el primer cliente</h2>
+
+        <p>Antes de usar cualquier servicio, la aplicación tiene que conocer a tus
+            clientes: su CUIT y sus claves. Esta sección explica cómo cargar uno a mano.</p>
+
+        <div class="tip">¿Tenés muchos clientes? No los cargues de a uno: mirá la
+            <a href="#carga-masiva">sección 6, Carga masiva desde Excel</a>.</div>
+
+        <h3>Paso 1. Entrar a Clientes</h3>
+        <p>Hacé clic en el botón <strong>Clientes</strong> del menú de arriba. También
+            podés escribir "clientes" en el buscador de la pantalla de inicio.</p>
+        <p>La primera vez la lista está vacía y dice <strong>No hay clientes
+            registrados</strong>.</p>
+
+        <figure>
+            <img src="capturas/app/clientes_lista_vacia.png"
+                 alt="Pantalla Gestión de Clientes con la lista vacía y los botones Nuevo Cliente, Carga Masiva, Exportar a Excel y Recargar.">
+            <figcaption>La lista de clientes vacía. Arriba están los botones para cargar clientes.</figcaption>
+        </figure>
+
+        <h3>Paso 2. Abrir el formulario</h3>
+        <p>Hacé clic en el botón verde <strong>Nuevo Cliente</strong>. Se abre un
+            formulario dividido en cuatro bloques.</p>
+
+        <figure>
+            <img src="capturas/app/clientes_formulario_alta.png"
+                 alt="Formulario de alta de cliente con los bloques Datos necesarios, Datos funcionales, Datos opcionales y Datos de grupos, y los botones Guardar Cliente y Cancelar.">
+            <figcaption>El formulario de alta. Solo el CUIT es obligatorio siempre.</figcaption>
+        </figure>
+
+        <h3>Paso 3. Completar los datos</h3>
+
+        <p><strong>Datos necesarios</strong></p>
+        <ul>
+            <li><strong>CUIT / CUIL</strong> (obligatorio): los 11 números, sin guiones ni espacios.</li>
+            <li><strong>Clave AFIP - ARCA</strong>: la clave fiscal del cliente.</li>
+            <li><strong>Clave ATM</strong>: la clave de Rentas Mendoza, si la vas a usar.</li>
+        </ul>
+        <p>El botón del ojo, al lado de cada clave, sirve para ver lo que escribiste y
+            revisar que no haya errores de tipeo.</p>
+
+        <p><strong>Datos funcionales</strong></p>
+        <ul>
+            <li><strong>Tipo Contribuyente</strong>: <strong>solo se usa para facturar</strong>.
+                Si no vas a facturar con este cliente, dejalo sin elegir. Si vas a
+                facturar: <strong>C</strong> si es monotributista, <strong>B</strong> si
+                es responsable inscripto en IVA. Al analizar el cliente
+                (<a href="#analizar">sección 7</a>), la aplicación lo toma de AFIP y lo
+                corrige sola.</li>
+            <li><strong>Representante AFIP</strong>: dejalo en "Opera solo" si el cliente
+                entra a AFIP con su propia clave. Más abajo se explica el otro caso.</li>
+        </ul>
+
+        <p><strong>Datos opcionales</strong></p>
+        <p>Nombre, apellido y razón social. No hace falta escribirlos: el nombre se
+            completa solo cuando la aplicación prueba la clave y lo lee de AFIP.</p>
+
+        <p><strong>Datos de grupos</strong></p>
+        <p>Si trabajás con varios estudios, acá elegís a cuál pertenece el cliente.
+            Para empezar, dejalo en "Sin estudio". Cómo se arman los estudios y para qué
+            sirven está en la <a href="#organizar">sección 8</a>.</p>
+
+        <h3>Clave propia o representado por otro</h3>
+        <p>Hay dos tipos de clientes:</p>
+        <ul>
+            <li><strong>Con clave propia</strong>: entra a AFIP con su CUIT y su clave.
+                Es el caso más común y el de un monotributista.</li>
+            <li><strong>Representado</strong>: no usa su clave, sino que entra a AFIP
+                a través de otra persona o empresa que lo representa. En ese caso elegís
+                al representante en la lista y el campo de clave AFIP se bloquea solo,
+                porque no hace falta.</li>
+        </ul>
+        <div class="tip">En la lista de representantes solo aparecen clientes que ya
+            están cargados <strong>con su clave AFIP</strong>. Por eso, con la lista
+            vacía, primero cargá al representante y después a sus representados.</div>
+
+        <h3>Paso 4. Guardar</h3>
+        <p>Hacé clic en <strong>Guardar Cliente</strong>. Pueden pasar dos cosas:</p>
+        <ul>
+            <li><strong>Si no cargaste ninguna clave</strong>, el cliente se guarda y
+                aparece en la lista enseguida.</li>
+            <li><strong>Si cargaste alguna clave</strong>, la aplicación la prueba en el
+                momento: entra a AFIP o ATM y lee el nombre del titular. Esto tarda un
+                poco, porque hace un ingreso real. Al terminar te avisa si la clave
+                anduvo o no. Lo que significa cada resultado está en la
+                <a href="#validar">sección 4</a>.</li>
+        </ul>
+
+        <h3>Si algo no te deja guardar</h3>
+        <ul>
+            <li><strong>"Debes ingresar el CUIT / CUIL"</strong>: el CUIT está vacío.</li>
+            <li><strong>"El CUIT / CUIL debe tener exactamente 11 números"</strong>:
+                sobran o faltan números, o hay letras o guiones.</li>
+        </ul>
+    </section>
+
+    <section id="validar"
+             data-claves="probar clave, contraseña, password, no entra, captcha, clave vencida, cambiar clave, inválido, verificar">
+        <h2>4. Validar las credenciales</h2>
+
+        <p>Validar es comprobar que la clave de cada cliente realmente entra a AFIP o
+            a ATM. La aplicación lo hace sola: abre el navegador, ingresa con la clave y
+            anota el resultado. Si la clave está mal, te enterás ahora y no a la mitad
+            de un trámite.</p>
+
+        <h3>Cómo leer la lista</h3>
+        <p>Cada cliente es una fila. A la derecha tiene dos líneas, <strong>AFIP</strong>
+            y <strong>ATM</strong>, cada una con una etiqueta de color que dice cómo está
+            esa clave.</p>
+
+        <figure>
+            <img src="capturas/app/clientes_estados_lista.png"
+                 alt="Lista de clientes con etiquetas de estado: Actualizar en naranja, Inválido en rojo, Sin clave en gris y Validado en verde.">
+            <figcaption>Cada fila muestra el estado de AFIP y de ATM por separado.
+                Los nombres y CUIT de las capturas son inventados.</figcaption>
+        </figure>
+
+        <table class="tabla">
+            <thead>
+                <tr><th>Etiqueta</th><th>Qué significa</th><th>Qué hacer</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="chip chip-gris">⌛ Pendiente</span></td>
+                    <td>La clave está cargada pero todavía no se probó.</td>
+                    <td>Probarla con el botón de la llave.</td>
+                </tr>
+                <tr>
+                    <td><span class="chip chip-verde">✔ Validado</span></td>
+                    <td>La clave entró bien.</td>
+                    <td>Nada, está lista para usar.</td>
+                </tr>
+                <tr>
+                    <td><span class="chip chip-rojo">✖ Inválido</span></td>
+                    <td>AFIP o ATM rechazó la clave.</td>
+                    <td>Pedirle la clave correcta al cliente y corregirla con el lápiz.</td>
+                </tr>
+                <tr>
+                    <td><span class="chip chip-naranja">⚠️ Actualizar</span></td>
+                    <td>La clave entra, pero AFIP o ATM pide cambiarla.</td>
+                    <td>Cambiarla en la página oficial y cargar la nueva con el lápiz.</td>
+                </tr>
+                <tr>
+                    <td><span class="chip chip-naranja">🧩 No verificado</span></td>
+                    <td>No se pudo comprobar, por ejemplo porque AFIP mostró un captcha
+                        o tardó demasiado. <strong>No quiere decir que la clave esté mal.</strong></td>
+                    <td>Volver a probar más tarde.</td>
+                </tr>
+                <tr>
+                    <td><span class="chip chip-gris">— sin clave</span></td>
+                    <td>No hay clave cargada para ese servicio.</td>
+                    <td>Nada, salvo que vayas a usar ese servicio con este cliente.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="tip">🧩 <strong>No verificado</strong> no quiere decir que la clave
+            esté mal: probala de nuevo más tarde.</div>
+
+        <figure class="figura-angosta">
+            <img src="capturas/app/clientes_estado_pendiente.png"
+                 alt="Fila de un cliente con AFIP en Pendiente y ATM en Validado.">
+            <figcaption>Una clave AFIP recién cargada, todavía sin probar.</figcaption>
+        </figure>
+        <p>Si al lado del estado de AFIP aparece una flechita <strong>↳</strong>, el
+            cliente es representado: el estado que ves es el de la clave de su
+            representante.</p>
+
+        <h3>Los botones de cada fila</h3>
+        <figure class="figura-angosta">
+            <img src="capturas/app/clientes_botones_fila.png"
+                 alt="Detalle de las etiquetas y los botones de cada fila: llave para probar, lupa para analizar, flechas para refrescar, lápiz para editar y tacho para borrar.">
+            <figcaption>Las etiquetas y los botones de cada fila. Fijate que la llave
+                se pone roja cuando la clave AFIP está mal.</figcaption>
+        </figure>
+        <ul>
+            <li><strong>🔑 Probar</strong>: prueba la clave. Si el cliente tiene clave
+                AFIP y ATM, el botón dice <strong>🔑 ▾</strong>: con un clic prueba las
+                dos, y si pasás el mouse por encima podés elegir una sola. Si la clave
+                AFIP está mal, el botón se pone rojo.</li>
+            <li><strong>✏️</strong> (Editar cliente): abre los datos del cliente para corregir
+                una clave. Cuando cambiás una clave, su estado vuelve a Pendiente.</li>
+            <li><strong>🗑️</strong> (Eliminar cliente): elimina al cliente de la lista.</li>
+            <li><strong>🔍 Analizar</strong> y <strong>🔄 Refrescar</strong>: traen las
+                empresas y los puntos de venta del cliente. Se explican en la
+                <a href="#analizar">sección 7</a>.</li>
+        </ul>
+
+        <h3>Probar varios clientes a la vez</h3>
+        <ol>
+            <li>Tildá la casilla a la izquierda de cada cliente, o usá
+                <strong>☑️ Seleccionar todos</strong>.</li>
+            <li>Hacé clic en <strong>🔑 Probar seleccionadas</strong>. Si pasás el mouse
+                por encima, podés elegir probar solo AFIP o solo ATM.</li>
+            <li>La aplicación los prueba uno por uno y va actualizando las etiquetas.</li>
+        </ol>
+        <p>El interruptor <strong>Mostrar navegador</strong> decide si ves el navegador
+            mientras trabaja.</p>
+        <div class="tip">Para aprender, dejá prendido <strong>Mostrar navegador</strong>:
+            así ves lo que hace. Cuando tengas confianza, podés apagarlo.</div>
+
+        <div class="tip importante">Mientras el navegador trabaja, no hagas clic en él ni lo
+            cierres. Esperá a que la aplicación avise que terminó.</div>
+    </section>
+
+    <section id="datos-registrales"
+             data-claves="constancia, inscripción, padrón, pdf, sistema registral, reflejo, datos registrados, descargar">
+        <h2>5. Primer servicio: Datos registrales</h2>
+
+        <p><strong>El problema:</strong> necesitás el PDF <strong>"Reflejo de datos
+            registrados"</strong> de Sistema Registral de uno o varios clientes, sin
+            entrar a AFIP a mano con cada clave.</p>
+        <p>Es un buen servicio para empezar: <strong>solo lee</strong>, no presenta ni
+            modifica nada en AFIP. Si algo sale mal, no hay nada que deshacer.</p>
+
+        <h3>Paso 1. Entrar a Datos registrales</h3>
+        <p>En el menú de arriba, abrí <strong>AFIP ▾</strong> y elegí
+            <strong>Datos registrales</strong>. También podés escribir "datos registrales"
+            o "constancia" en el buscador de la pantalla de inicio.</p>
+
+        <h3>Paso 2. Elegir los clientes</h3>
+        <p>En <strong>🔍 BUSCAR CLIENTES</strong> escribí parte del nombre o del CUIT, y
+            hacé clic en cada cliente de la lista <strong>📋 CLIENTES</strong>. Los que
+            elegís pasan abajo, a <strong>✓ SELECCIONADOS</strong>. Si te equivocaste,
+            sacalo de ahí o usá <strong>✕ Limpiar seleccionados</strong>.</p>
+
+        <figure>
+            <img src="capturas/app/datos_registrales_pantalla.png"
+                 alt="Pantalla Datos registrales con el buscador BUSCAR CLIENTES vacío, la lista CLIENTES que dice 101 de 209 y la casilla Mostrar no habilitados.">
+            <figcaption>Arriba el buscador; abajo, la lista para elegir. Los nombres y CUIT
+                de las capturas son inventados.</figcaption>
+        </figure>
+        <p>La lista muestra solo los clientes que pueden entrar a AFIP: con su clave o
+            con la de su representante. Para ver también los demás, tildá
+            <strong>Mostrar no habilitados</strong>.</p>
+        <ul>
+            <li>Un cliente con la clave <strong>todavía sin probar</strong> se puede
+                elegir: usarlo la prueba.</li>
+            <li>Un cliente con la clave <strong>marcada como incorrecta</strong> no se
+                puede elegir, porque fallaría seguro. Primero corregí la clave (ver la
+                <a href="#validar">sección 4</a>).</li>
+        </ul>
+
+        <h3>Paso 3. Descargar</h3>
+        <ol>
+            <li>Dejá tildado <strong>Mostrar navegador</strong>, así ves lo que hace.</li>
+            <li>Hacé clic en <strong>Descargar datos registrales</strong>.</li>
+            <li>Aparece un aviso con la lista de clientes elegidos. Revisala y hacé clic
+                en <strong>Iniciar</strong>.</li>
+        </ol>
+
+        <figure>
+            <img src="capturas/app/datos_registrales_elegidos.png"
+                 alt="Tabla SELECCIONADOS con cuatro clientes, cada uno con su botón para quitarlo, y debajo el interruptor Mostrar navegador prendido y el botón azul Descargar datos registrales.">
+            <figcaption>Los clientes elegidos, listos para descargar.</figcaption>
+        </figure>
+        <p>Mientras trabaja, el botón cambia a <strong>Cancelar</strong> (los primeros
+            segundos no responde, para que un doble clic no corte todo). Si lo apretás,
+            deja de trabajar: el cliente que estaba haciendo y los que faltaban quedan
+            como cancelados. Los PDF que ya bajó quedan guardados.</p>
+
+        <h3>Qué vas a ver</h3>
+        <p>Se abre el navegador y, para cada cliente:</p>
+        <ol>
+            <li>Entra a AFIP con la clave.</li>
+            <li>Busca <strong>Sistema registral</strong> y lo abre en una pestaña nueva.</li>
+            <li>Elige al cliente, va a <strong>Datos registrales</strong> y exporta el PDF.</li>
+            <li>Cierra esa pestaña y sigue con el próximo.</li>
+        </ol>
+        <p>Tené paciencia: la consulta de AFIP es lenta. En la app, la parte de
+            <strong>Resultados</strong> va mostrando cada cliente:</p>
+        <ul>
+            <li><strong>⏳</strong>: lo está haciendo.</li>
+            <li><strong>✓</strong>: listo, se descargó el PDF.</li>
+            <li><strong>✗</strong>: no se pudo; al lado dice por qué.</li>
+            <li><strong>⏹</strong>: cancelado.</li>
+        </ul>
+        <p>Al final dice, por ejemplo, <strong>"Terminado: 3 descargado(s), 0 con
+            error."</strong></p>
+
+        <figure>
+            <img src="capturas/app/datos_registrales_resultados.png"
+                 alt="Resultados 3 de 3: tres clientes en verde con tilde y el texto PDF de datos registrales descargado, cada uno con los botones Abrir PDF y Carpeta; abajo dice Terminado: 3 descargado(s), 0 con error.">
+            <figcaption>Al terminar: cada cliente con su ✓ y los botones para abrir el PDF
+                o ir a la carpeta.</figcaption>
+        </figure>
+
+        <div class="tip">Si elegís varios clientes que tienen el mismo representante, la
+            app entra a AFIP una sola vez con esa clave y baja todos los PDF seguidos.
+            Es más rápido que hacerlos de a uno.</div>
+
+        <div class="tip">Si AFIP pide captcha, la app saltea al resto de los clientes en
+            vez de seguir intentando: el bloqueo dura unos 15 minutos. Esos clientes
+            quedan con ✗ y el mensaje "Salteado: AFIP pidió captcha". Probalos de nuevo
+            más tarde.</div>
+
+        <h3>Dónde queda el PDF</h3>
+        <p>En cada cliente que salió bien aparecen dos botones:
+            <strong>Abrir PDF</strong> y <strong>📁 Carpeta</strong>.</p>
+        <p>El archivo se guarda dentro de tu carpeta de <strong>Descargas</strong>, en una
+            carpeta por cliente:</p>
+        <p><code>Descargas / gestor_afip_atm / CUIT_Nombre / archivos_afip /</code></p>
+        <p>y se llama, por ejemplo, <code>20123456789_DatosRegistrales_2026-11-20.pdf</code>:
+            CUIT, servicio y fecha del día.</p>
+        <div class="tip">Si lo descargás dos veces el mismo día, el PDF nuevo reemplaza
+            al anterior. Los de otros días quedan guardados.</div>
+    </section>
+
+    <!-- ===================== PARTE 2 ===================== -->
+
+    <section id="carga-masiva"
+             data-claves="excel, planilla, importar, muchos clientes, modelo, plantilla, columnas, xlsx, csv, subir">
+        <h2>6. Carga masiva de clientes desde Excel</h2>
+
+        <p><strong>El problema:</strong> tenés decenas o cientos de clientes y cargarlos
+            de a uno con <strong>Nuevo Cliente</strong> lleva horas. Con la carga masiva
+            armás una planilla de Excel y la aplicación los da de alta a todos juntos.</p>
+
+        <h3>Paso 1. Abrir la carga masiva</h3>
+        <p>En <strong>Clientes</strong>, hacé clic en el botón celeste
+            <strong>📂 Carga Masiva</strong>. Se abre el recuadro
+            <strong>📂 Carga Masiva desde Excel</strong>.</p>
+
+        <figure>
+            <img src="capturas/app/clientes_carga_masiva.png"
+                 alt="Recuadro Carga Masiva desde Excel con la ayuda Formato esperado del Excel desplegada: tabla de columnas, botón Descargar modelo, selector de archivo y botón Procesar Archivo.">
+            <figcaption>La carga masiva con la ayuda desplegada. Abajo, el archivo a
+                elegir y el botón para procesarlo.</figcaption>
+        </figure>
+
+        <h3>Paso 2. Armar la planilla</h3>
+        <p>Lo más fácil es partir del modelo: abrí <strong>ℹ️ Formato esperado del
+            Excel</strong> y hacé clic en <strong>⬇️ Descargar modelo (.xlsx)</strong>.
+            Te pregunta dónde guardarlo y baja un archivo
+            <code>modelo_carga_clientes.xlsx</code> con las columnas listas.</p>
+
+        <div class="tip importante">El modelo trae una fila de ejemplo (Juan Pérez,
+            CUIT 20-12345678-9). Borrala antes de cargar tus clientes: si no, la
+            aplicación lo da de alta como un cliente más.</div>
+
+        <p>Reglas de la planilla:</p>
+        <ul>
+            <li>Los <strong>encabezados van en la primera fila</strong> de la primera hoja,
+                sin títulos ni filas en blanco arriba.</li>
+            <li>El <strong>orden de las columnas no importa</strong>.</li>
+            <li>Solo el <strong>cuit</strong> es obligatorio. Puede ir con guiones o
+                espacios: la aplicación los saca, pero tiene que quedar en 11 números.</li>
+            <li>Se aceptan archivos <strong>.xlsx</strong>, <strong>.xls</strong> y
+                <strong>.csv</strong>.</li>
+        </ul>
+
+        <table class="tabla">
+            <thead>
+                <tr><th>Columna</th><th>Qué va</th></tr>
+            </thead>
+            <tbody>
+                <tr class="tabla-bloque"><th colspan="2">Datos necesarios</th></tr>
+                <tr><td><code>cuit</code></td><td>El CUIT o CUIL del cliente. <strong>Obligatorio.</strong></td></tr>
+                <tr><td><code>claveAFIP</code></td><td>La clave fiscal. Opcional, pero sin ella (ni representante) el cliente no puede usar los servicios de AFIP.</td></tr>
+                <tr><td><code>claveATM</code></td><td>La clave de Rentas Mendoza. Opcional: solo si vas a usar ATM.</td></tr>
+                <tr class="tabla-bloque"><th colspan="2">Datos funcionales</th></tr>
+                <tr><td><code>tipoContribuyente</code></td><td><strong>Solo se usa para facturar</strong>: podés dejarlo vacío. Si lo completás, <strong>C</strong> si es monotributista, <strong>B</strong> si es responsable inscripto. Al analizar el cliente, la aplicación lo toma de AFIP y lo corrige sola.</td></tr>
+                <tr><td><code>cuitRepresentante</code></td><td>Opcional. El CUIT de quien lo representa en AFIP. Si lo completás, el cliente entra a AFIP por su representante y no necesita clave AFIP propia.</td></tr>
+                <tr class="tabla-bloque"><th colspan="2">Datos opcionales</th></tr>
+                <tr><td><code>nombre</code>, <code>apellido</code></td><td>Si no los ponés, el nombre se completa solo al probar la clave.</td></tr>
+                <tr><td><code>razonSocial</code></td><td>Si falta, se arma con apellido y nombre.</td></tr>
+                <tr class="tabla-bloque"><th colspan="2">Datos de grupos</th></tr>
+                <tr><td><code>estudio</code></td><td>Opcional. El nombre del estudio al que pertenece. Si ese estudio no existe, se crea solo. Vacío = sin estudio.</td></tr>
+            </tbody>
+        </table>
+
+        <div class="tip">Si hay representantes, incluilos en la misma planilla con su
+            clave AFIP. Así sus representados quedan listos para operar.</div>
+
+        <h3>Paso 3. Subir el archivo</h3>
+        <ol>
+            <li>En <strong>Selecciona archivo Excel</strong>, hacé clic en el botón para
+                elegir el archivo y buscá tu planilla.</li>
+            <li>Hacé clic en <strong>📤 Procesar Archivo</strong>. Mientras trabaja dice
+                <strong>Procesando...</strong>.</li>
+        </ol>
+        <p>Al terminar muestra un resumen, por ejemplo:</p>
+        <p><strong>"✅ Proceso terminado: Leídos: 50, Creados: 48, Actualizados: 2,
+            Con error: 0."</strong></p>
+        <ul>
+            <li><strong>Leídos</strong>: cuántas filas tenía la planilla.</li>
+            <li><strong>Creados</strong>: clientes nuevos.</li>
+            <li><strong>Actualizados</strong>: clientes que ya estaban y a los que se les
+                completó algún dato.</li>
+            <li><strong>Sin cambios</strong>: clientes que ya estaban con todo cargado
+                (aparece solo si hay alguno).</li>
+            <li><strong>Con error</strong>: filas que no se pudieron cargar. Si hay, el
+                resumen empieza con ⚠️ y abajo dice cuáles son y por qué, por ejemplo
+                "CUIT/CUIL inválido". Corregilas en la planilla y volvé a subirla.</li>
+        </ul>
+
+        <h3>Qué pasa con los clientes que ya existían</h3>
+        <p>La aplicación reconoce a cada cliente por su CUIT. Si ya lo tenías cargado,
+            <strong>solo completa los datos que estaban vacíos</strong>. Nunca cambia un
+            dato que ya tenía: ni el nombre, ni una clave, ni si la clave estaba
+            validada.</p>
+        <div class="tip">Podés subir la misma planilla varias veces sin miedo: no duplica
+            clientes ni borra lo que corregiste adentro de la aplicación. Para cambiar
+            una clave que ya estaba cargada, usá el lápiz ✏️ en la lista (<a href="#validar">sección 4</a>).</div>
+
+        <h3>Paso 4. Probar las claves</h3>
+        <p>Si la planilla traía claves, debajo del resumen aparece el botón
+            <strong>🔐 Verificar credenciales de usuarios cargados</strong>. Hace lo mismo
+            que <strong>🔑 Probar seleccionadas</strong>, pero solo con los clientes que
+            acabás de cargar. Pide confirmar con <strong>Sí, verificar</strong> y los
+            prueba uno por uno, igual que en la <a href="#validar">sección 4</a>.</p>
+        <div class="tip">No hace falta probar todas las claves ahora. Si cargaste muchos
+            clientes y preferís ir de a poco, probá solo los que vas a usar: cuando
+            elegís un cliente en un servicio, su clave se prueba sola.</div>
+        <p>Si vas a facturar con estos clientes, falta un paso más: analizarlos. Es la
+            <a href="#analizar">sección 7</a>, y de paso también prueba las claves.</p>
+    </section>
+
+    <section id="analizar"
+             data-claves="empresas, puntos de venta, pdv, analizar pendientes, refrescar, se cortó, tarda, traer pdv, facturar">
+        <h2>7. Analizar cada cliente</h2>
+        <div class="aviso">Es la parte más tediosa de todo el arranque: entra a AFIP con
+            cada clave y puede tardar bastante. Pero se hace una sola vez por cliente, y
+            solo con los que vas a usar para facturar.</div>
+
+        <p><strong>El problema:</strong> para facturar, la aplicación necesita conocer
+            los <strong>puntos de venta</strong> de cada cliente y las
+            <strong>empresas</strong> que maneja cada clave en AFIP. Analizar entra a AFIP
+            y los trae.</p>
+
+        <h3>¿Hace falta analizar a todos?</h3>
+        <p><strong>No.</strong> Analizar solo hace falta para los servicios que usan
+            puntos de venta: facturación, Factura Tipificada, Facturar desde Excel,
+            Consulta de comprobantes y Mercado Pago. Para el resto, como
+            <a href="#datos-registrales">Datos registrales</a>, alcanza con la clave.</p>
+        <div class="tip">Si tenés muchos clientes y no querés analizarlos a todos, no
+            hace falta: analizá solo los que vas a facturar. Y si en una pantalla de
+            facturación elegís a uno sin analizar, en su fila aparece el botón
+            <strong>🔄 Traer PDV</strong>, que lo analiza en el momento.</div>
+
+        <p>Además, analizar <strong>prueba la clave de paso</strong>: si vas a analizar,
+            no hace falta probar las claves antes (<a href="#validar">sección 4</a>).
+            Y toma de AFIP el <strong>tipo de contribuyente</strong>, corrigiendo el que
+            estaba cargado.</p>
+
+        <h3>Analizar un cliente</h3>
+        <p>En la lista de <strong>Clientes</strong>, cada cliente con acceso a AFIP tiene
+            en su fila el botón <strong>🔍 Analizar</strong>. Al hacer clic aparece el
+            cartel <strong>"🔍 Analizando cliente"</strong> y, al terminar, un aviso como
+            <strong>"✅ Nombre del cliente: 2 punto(s) de venta."</strong></p>
+        <p>Una vez analizado, ese botón cambia a <strong>🔄 Refrescar</strong>: sirve
+            para volver a traer los datos si el cliente dio de alta un punto de venta
+            nuevo.</p>
+
+        <h3>Analizar varios a la vez</h3>
+        <ol>
+            <li>Arriba de la lista está el botón <strong>🔍 Analizar pendientes</strong>,
+                con la cantidad de clientes que faltan analizar entre paréntesis.</li>
+            <li>Si tildás algunos clientes, el botón cambia a <strong>🔍 Analizar
+                seleccionados</strong> y trabaja solo con esos. Si no tildás ninguno,
+                analiza <strong>todos los pendientes de la lista</strong>.</li>
+            <li>Confirmá con <strong>Sí, analizar</strong>.</li>
+        </ol>
+        <figure>
+            <img src="capturas/app/clientes_analizar_pendientes.png"
+                 alt="Barra de arriba de la lista de clientes con el botón Analizar pendientes (6), y debajo tres clientes sin tildar.">
+            <figcaption>Sin nada tildado, el botón ofrece analizar todos los
+                pendientes.</figcaption>
+        </figure>
+        <figure>
+            <img src="capturas/app/clientes_analizar_seleccionados.png"
+                 alt="La misma barra con el botón Analizar seleccionados (1) y un cliente tildado en la lista.">
+            <figcaption>Con un cliente tildado, el botón cambia a <strong>Analizar
+                seleccionados</strong> y trabaja solo con ese.</figcaption>
+        </figure>
+        <p>Mientras trabaja aparece el cartel <strong>"🔍 Analizando N clientes"</strong> con una barra de avance y la cuenta de ✅ y ❌. Al final, un resumen que empieza con
+            <strong>"Lote terminado:"</strong> dice cuántos ingresos salieron bien y
+            cuáles fallaron.</p>
+        <div class="tip importante">El análisis no se puede cancelar a mitad. Antes de
+            lanzar muchos clientes, asegurate de tener tiempo para dejarlo terminar.</div>
+        <p>Los clientes con la clave marcada como <strong>✖ Inválido</strong> o
+            <strong>⚠️ Actualizar</strong> no entran en el análisis: primero hay que
+            corregir la clave.</p>
+
+        <h3>Cuánto tarda</h3>
+        <p>Depende de cuántas <strong>claves distintas</strong> haya, no de cuántos
+            clientes. La aplicación agrupa a los clientes por la clave con la que
+            entran: un representante con diez representados es un solo ingreso a AFIP,
+            y trae a los diez de una vez. Diez clientes con clave propia son diez
+            ingresos.</p>
+        <div class="tip">Al analizar un representante, la aplicación trae todas las
+            empresas que maneja. Si alguna no estaba cargada, la agrega sola a la lista
+            de clientes, ya vinculada a ese representante.</div>
+
+        <h3>Si se corta a la mitad</h3>
+        <p>Lo que ya se analizó queda guardado. Volvé a apretar
+            <strong>🔍 Analizar pendientes</strong>: cuenta solo los que faltan y sigue
+            desde ahí. Si AFIP pidió captcha, esperá unos 15 minutos antes de
+            reintentar.</p>
+    </section>
+
+    <section id="organizar"
+             data-claves="estudios, estudio, grupos, grupo, filtro, filtrar, exportar, exportar a excel, copia de seguridad, backup, respaldo, otra computadora, otra pc, reinstalar, pasar clientes, importar">
+        <h2>8. Organizar la cartera</h2>
+        <p><strong>El problema:</strong> con muchos clientes, la lista se hace larga y
+            cuesta encontrar lo que buscás. Y si cambiás de computadora, no querés
+            cargar todo de nuevo.</p>
+
+        <h3>Estudios (grupos)</h3>
+        <p>Un <strong>estudio</strong> es una etiqueta para separar tus clientes: por
+            estudio, por oficina o como te sirva. Cada cliente puede estar en un estudio
+            o en ninguno. No tiene nada que ver con el representante: son cosas
+            separadas.</p>
+        <figure>
+            <img src="capturas/app/clientes_estudios_lista.png"
+                 alt="Lista de Clientes Registrados con el filtro Estudio desplegado: Todos los estudios, Sin estudio, Estudio Belgrano, Estudio Güemes y Estudio Moreno. Debajo de cada cliente se ve su etiqueta de estudio de color.">
+            <figcaption>Cada cliente muestra su estudio en una etiqueta de color, debajo
+                del CUIT. Arriba, el filtro <strong>🏢 Estudio:</strong> desplegado.</figcaption>
+        </figure>
+
+        <p><strong>Crear, renombrar o eliminar estudios:</strong> en el formulario del
+            cliente (al crearlo o al editarlo con ✏️), al lado de
+            <strong>Estudio / Grupo:</strong> está el botón <strong>⚙️</strong>. Abre la
+            ventana <strong>🏢 Estudios / Grupos</strong>:</p>
+        <ul>
+            <li>Para crear uno, escribí el nombre y hacé clic en
+                <strong>➕ Agregar</strong>. La aplicación le da un color sola.</li>
+            <li>Para renombrarlo, cambiá el nombre en la lista y hacé clic en
+                <strong>💾</strong>.</li>
+            <li>Para eliminarlo, hacé clic en <strong>🗑️</strong>. <strong>Sus clientes
+                no se borran</strong>: quedan "sin estudio".</li>
+        </ul>
+        <p>No puede haber dos estudios con el mismo nombre. Para la aplicación,
+            "Estudio Sur" y "estudio sur" son el mismo.</p>
+
+        <p><strong>Ponerle un estudio a un cliente:</strong> elegilo en
+            <strong>Estudio / Grupo:</strong> dentro del formulario del cliente y
+            guardá. Si cargás clientes con la <a href="#carga-masiva">carga masiva</a>,
+            poné el nombre del estudio en la columna <code>estudio</code>. Si ese estudio
+            todavía no existe, la aplicación lo crea sola.</p>
+
+        <h3>Filtrar la lista</h3>
+        <p>Debajo del buscador está <strong>🏢 Estudio:</strong>. Podés elegir
+            <strong>Todos los estudios</strong>, <strong>— Sin estudio —</strong> (los
+            que no tienen ninguno) o un estudio en particular.</p>
+        <p>El filtro se suma al buscador. Si elegís un estudio y escribís "pérez",
+            ves solo los Pérez de ese estudio.</p>
+
+        <h3>Exportar a Excel (copia de seguridad)</h3>
+        <p>El botón <strong>⬆️ Exportar a Excel</strong>, arriba de la lista, baja tus
+            clientes a una planilla. Te pregunta dónde guardarla. Al terminar, un aviso
+            te dice cuántos clientes exportó y dónde quedó el archivo.</p>
+        <ul>
+            <li><strong>Respeta el filtro de estudio.</strong> Con
+                <strong>Todos los estudios</strong> elegido, exporta a todos. Con un
+                estudio elegido, solo a ese, y el nombre del archivo lo dice (por
+                ejemplo <code>clientes_Estudio_Sur_2026-11-20.xlsx</code>). El buscador
+                no cuenta: aunque hayas escrito algo, exporta el estudio entero.</li>
+            <li>La planilla tiene dos hojas: <strong>Clientes</strong> (las mismas
+                columnas de la carga masiva, más algunas de solo lectura en gris, como el
+                estado de las claves) y <strong>PuntosDeVenta</strong>.</li>
+        </ul>
+        <div class="tip importante">El Excel exportado lleva las <strong>claves sin
+            protección</strong>: cualquiera que lo abra las ve. Guardalo en un lugar
+            seguro y no lo mandes por mail ni lo dejes en el escritorio.</div>
+        <div class="tip">Antes de cambiar de computadora o reinstalar, exportá con
+            <strong>Todos los estudios</strong> elegido. Así tenés todo en un solo
+            archivo.</div>
+
+        <h3>Volver a cargar ese Excel</h3>
+        <p>Sirve para pasar los clientes a otra computadora, a una instalación nueva o
+            a un compañero. Se carga por <strong>📂 Carga Masiva</strong>, igual que en
+            la <a href="#carga-masiva">sección 6</a>: elegís el archivo exportado y
+            hacés clic en <strong>Procesar Archivo</strong>.</p>
+        <ul>
+            <li>Un cliente que <strong>no estaba</strong> entra con sus claves, su
+                estudio, el estado de sus claves y sus puntos de venta. Si ya estaba
+                analizado, <strong>no hace falta volver a analizarlo</strong>
+                (<a href="#analizar">sección 7</a>).</li>
+            <li>Un cliente que <strong>ya estaba</strong> solo completa lo que tenía
+                vacío, como en la sección 6. No se pisa nada.</li>
+        </ul>
+        <div class="tip">¿Querés pasarle a un compañero solo los clientes de un
+            estudio? Elegí ese estudio en el filtro y exportá. Él lo carga con la carga
+            masiva y le quedan con el estudio puesto.</div>
+    </section>
+
+    <!-- ===================== PARTE 3 ===================== -->
+
+    <section id="consulta-comprobantes"
+             data-claves="facturas, facturado, facturación, emitidos, comprobantes en línea, ventas, cuánto facturó, recategorización, monotributo, punto de venta, pdv, tipo de comprobante, nota de crédito, suma total, excel">
+        <h2>9. Consulta de comprobantes emitidos</h2>
+        <p><strong>El problema:</strong> querés saber cuánto facturó un cliente en un
+            período (por ejemplo, para la recategorización del monotributo) y en AFIP
+            tenés que entrar a "Comprobantes en línea" y abrir factura por factura.</p>
+        <p>Este servicio lo hace solo: trae todos los comprobantes emitidos entre dos
+            fechas, te da la cantidad y la suma total, y arma un Excel con el detalle.
+            Solo consulta: no emite ni cambia nada en AFIP.</p>
+        <div class="aviso"><strong>El cliente tiene que estar analizado</strong> (con sus
+            puntos de venta traídos, ver <a href="#analizar">sección 7</a>). Si no tiene
+            facturación habilitada, aparece <strong>"⚠️ Esta empresa no tiene facturación
+            habilitada en AFIP…"</strong>: no tiene comprobantes para consultar, aunque el botón
+            quede prendido.</div>
+
+        <h3>Paso a paso</h3>
+        <ol>
+            <li>Abrí <strong>AFIP ▾ → Consulta Comprobantes</strong> (o escribí
+                "comprobantes" en el buscador de inicio).</li>
+            <li>En <strong>BUSCAR CLIENTES</strong>, elegí el cliente. Se elige uno solo
+                por vez.</li>
+        </ol>
+        <figure>
+            <img src="capturas/app/comprobantes_cliente.png"
+                 alt="Pantalla Consulta de Comprobantes Emitidos: arriba la explicación, abajo el buscador BUSCAR CLIENTES y la lista CLIENTES 4 de 5 con un cliente elegido y tildado.">
+            <figcaption>El cliente elegido queda marcado con ✓. Los nombres y CUIT son
+                inventados.</figcaption>
+        </figure>
+        <ol start="3">
+            <li><strong>Punto de venta</strong> (opcional): debajo dice cuántos tiene el
+                cliente. Si no elegís ninguno, trae <strong>todos</strong>.</li>
+            <li><strong>Tipo de comprobante</strong> (opcional): por ejemplo, solo
+                "Factura C". Si lo dejás en <strong>Todos los comprobantes (no
+                filtrar)</strong>, trae todos.</li>
+            <li><strong>Fecha desde</strong> y <strong>Fecha hasta</strong>. "Fecha hasta"
+                ya viene con la fecha de hoy.</li>
+            <li>Hacé clic en <strong>Consultar comprobantes</strong>.</li>
+        </ol>
+        <figure>
+            <img src="capturas/app/comprobantes_formulario.png"
+                 alt="Formulario con Punto de venta sin elegir y el texto 7 puntos de venta, Tipo de comprobante en Todos los comprobantes, Fecha desde 01/05/2026, Fecha hasta 31/05/2026, el interruptor Mostrar navegador prendido y el botón Consultar comprobantes.">
+            <figcaption>Todo mayo, de todos los puntos de venta y todos los tipos de
+                comprobante.</figcaption>
+        </figure>
+        <p>La aplicación entra a AFIP y <strong>abre el PDF de cada comprobante</strong>
+            para sacar el detalle (neto, IVA, cliente). Por eso, con muchos comprobantes
+            tarda: va de a uno.</p>
+        <div class="tip">Para un período largo o un cliente que factura mucho, filtrá
+            por punto de venta o partí las fechas en tramos (por ejemplo, mes por mes):
+            cada consulta tarda menos y, si se corta, no perdés todo.</div>
+
+        <h3>El resultado</h3>
+        <ul>
+            <li>Dos tarjetas: <strong>Comprobantes</strong> (la cantidad) y <strong>Suma
+                total</strong>.</li>
+            <li>El recuadro <strong>Excel generado</strong>, con <strong>Abrir
+                archivo</strong> y <strong>📁 Mostrar en la carpeta</strong>.</li>
+            <li>Una tabla con cada comprobante: tipo, punto de venta, número, período,
+                CUIT y razón social del comprador, y total.</li>
+        </ul>
+        <figure>
+            <img src="capturas/app/comprobantes_resultado.png"
+                 alt="Resultados: tarjetas Comprobantes 8 y Suma total 604.250,74 pesos, el recuadro Excel generado con los botones Abrir archivo y Mostrar en la carpeta, y la tabla con las primeras facturas C.">
+            <figcaption>Ocho comprobantes de mayo. Las razones sociales y CUIT son
+                inventados.</figcaption>
+        </figure>
+        <div class="tip importante"><strong>Las notas de crédito restan.</strong> Van en
+            negativo, en la suma y en el Excel: la <strong>Suma total</strong> ya es lo
+            facturado neto de devoluciones.</div>
+        <p>Si en el rango no hay nada, la tabla dice <strong>No se encontraron
+            comprobantes en el rango</strong>. Si algo falla, aparece el motivo con ❌
+            (ver <a href="#problemas">sección 13</a>).</p>
+        <div class="tip">Si una fila sale con "—" en número y total, la aplicación no pudo
+            leer el PDF de ese comprobante y <strong>no lo sumó</strong>. Buscalo en AFIP y
+            sumalo a mano.</div>
+        <div class="tip importante"><strong>Compará la cantidad con la de AFIP.</strong> Si el
+            PDF de un comprobante no baja a tiempo, la aplicación lo saltea
+            <strong>sin avisar</strong>: no está en la tabla ni en la suma. Si faltan, volvé a
+            consultar.</div>
+
+        <h3>El Excel</h3>
+        <p>Queda en <code>Descargas\gestor_afip_atm\CUIT_Nombre\archivos_afip\</code>, con
+            un nombre como
+            <code>consulta_comprobantes_CUIT_01-05-2026_a_31-05-2026_….xlsx</code>. Cada
+            consulta hace un archivo nuevo. Trae dos hojas:</p>
+        <ul>
+            <li><strong>Comprobantes</strong>: una fila por comprobante, con fecha de
+                emisión, comprador, importe neto gravado, cada alícuota de IVA, otros
+                tributos y total.</li>
+            <li><strong>Descripciones</strong>: el detalle de lo facturado en cada
+                comprobante.</li>
+        </ul>
+    </section>
+
+    <section id="apremios"
+             data-claves="rentas, mendoza, atm, apremio, apremios, deuda, juicio, inhibición, inhibiciones, embargo, saldo adeudado, automotor, inmueble, ingresos brutos, iibb, multas, agentes, oficina virtual">
+        <h2>10. ATM: Apremios</h2>
+        <p><strong>El problema:</strong> querés saber si un cliente tiene apremios (juicios
+            de cobro) en ATM y cuánto debe. A mano hay que entrar a la Oficina Virtual y
+            consultar impuesto por impuesto.</p>
+        <p>Este servicio lo hace solo, para uno o varios clientes, y arma un Excel por
+            cliente. Solo consulta: no paga ni cambia nada en ATM. Necesita la
+            <strong>clave ATM</strong> del cliente; no hace falta analizarlo.</p>
+
+        <h3>Paso a paso</h3>
+        <ol>
+            <li>Abrí <strong>ATM ▾ → Apremios</strong> (o, en la pantalla
+                <strong>Servicios de ATM</strong>, el botón <strong>Apremios</strong>).</li>
+            <li>Elegí los clientes en la lista. Pueden ser varios. (La pantalla de ATM
+                también deja guardar listas de clientes y buscarlos por nombre, uno por
+                línea, con <strong>Buscar y seleccionar</strong>.)</li>
+            <li>Abajo aparece <strong>Impuestos a consultar por cliente</strong>: una fila
+                por cliente con casillas para <strong>Automotor</strong>,
+                <strong>Inmueble</strong>, <strong>Ingresos Brutos</strong>,
+                <strong>Multas</strong> y <strong>Agentes</strong>.
+                <ul>
+                    <li><strong>Todos</strong> marca los cinco de ese cliente.</li>
+                    <li>La primera fila de la tabla marca o desmarca una columna para
+                        todos los clientes a la vez.</li>
+                </ul>
+            </li>
+            <li>Hacé clic en <strong>Procesar Apremios</strong> (dice entre paréntesis
+                cuántos clientes van) y confirmá.</li>
+        </ol>
+        <div class="tip importante"><strong>Cada cliente arranca sin ningún impuesto
+            marcado.</strong> Mientras le falte, su nombre se ve en rojo. Si procesás así, aparece <strong>"Estos
+            clientes no tienen ningún impuesto marcado:"</strong> con la lista, y no arranca
+            ninguno.</div>
+        <figure>
+            <img src="capturas/app/apremios_impuestos.png"
+                 alt="Tabla Impuestos a consultar por cliente con dos clientes: Rivadavia con Inmueble, Ingresos Brutos y Agentes tildados, y Urquiza con Automotor, Ingresos Brutos y Multas. Debajo, el interruptor Mostrar navegador y el botón Procesar Apremios (2).">
+            <figcaption>Cada cliente con sus impuestos. Los nombres son inventados.</figcaption>
+        </figure>
+        <figure>
+            <img src="capturas/ventanas/apremios_confirmacion.png"
+                 alt="Ventana Apremios: Se iniciará el proceso para 2 clientes, cada uno con sus impuestos entre paréntesis, y la pregunta ¿Desea continuar? con los botones Cancelar e Iniciar.">
+            <figcaption>Antes de arrancar te muestra qué va a consultar. Se confirma con
+                <strong>Iniciar</strong>.</figcaption>
+        </figure>
+
+        <h3>El resultado</h3>
+        <p>Cada cliente pasa a <strong>Finalizados</strong> con una etiqueta y una línea
+            por impuesto consultado, por ejemplo:</p>
+        <ul>
+            <li><strong>"Ingresos Brutos: sin apremios"</strong></li>
+            <li><strong>"Automotor: 2 apremio(s), 1 con saldo ($ …)"</strong> o
+                <strong>"…, ninguno con saldo"</strong></li>
+            <li><strong>"Inmueble: no se pudo consultar (…)"</strong></li>
+        </ul>
+        <p>La etiqueta dice <strong>Éxito</strong> si salieron todos,
+            <strong>PARCIAL</strong> si algún impuesto falló (el
+            Excel se guarda igual con los demás) o <strong>FALLO</strong> si no salió ninguno.
+            Un impuesto que falla no corta a los otros. Debajo están los botones
+            <strong>Abrir</strong> (el Excel) y <strong>📁 Abrir carpeta del
+            cliente</strong>.</p>
+        <figure>
+            <img src="capturas/app/apremios_resultado.png"
+                 alt="Finalizados: Rivadavia y Urquiza con la etiqueta Éxito - 1 archivo(s), una línea por impuesto con los apremios y el saldo, el nombre del Excel con el botón Abrir y el botón Abrir carpeta del cliente.">
+            <figcaption>En naranja, los impuestos con saldo. Los nombres, CUIT y montos son
+                inventados.</figcaption>
+        </figure>
+        <div class="tip">Si cancelás a mitad, el botón pasa a <strong>Procesar los N
+            restantes</strong>: los clientes que ya salieron bien no se repiten.</div>
+
+        <h3>El Excel</h3>
+        <p>Uno por cliente, en
+            <code>Descargas\gestor_afip_atm\CUIT_Nombre\archivos_atm\Apremios\</code>, con
+            el nombre <code>CUIT_Apremios_AAAA-MM-DD.xlsx</code>. Trae:</p>
+        <ul>
+            <li>La hoja <strong>Resumen</strong>: por impuesto, cuántos apremios hay,
+                cuántos con saldo, el saldo adeudado y el estado.</li>
+            <li>Una hoja por impuesto consultado, con el listado tal cual lo muestra ATM
+                (boleta, juicio, juzgado, importes). Si no hay apremios, dice "Sin
+                apremios"; si falló, el motivo.</li>
+        </ul>
+        <div class="tip importante"><strong>Si consultás dos veces el mismo día, el Excel
+            nuevo reemplaza al anterior</strong> (el nombre lleva la fecha, no la hora). Si
+            querés guardar el primero, cambiale el nombre antes.</div>
+    </section>
+
+    <!-- ===================== PARTE 4 ===================== -->
+
+    <section id="pdf-excel"
+             data-claves="pdf, resumen bancario, resúmenes, banco, extracto, movimientos, tabla, extraer, convertir, pasar a excel, modo grupo, procesar por grupo, carpeta, escaneado, nación, galicia, macro, santander, bbva, credicoop, supervielle, f931, 931, cargas sociales, iva, f2002, f2051, deuda, plan de pago, cuotas, condonación, constancia fiscal">
+        <h2>11. PDF a Excel: resúmenes bancarios y formularios de AFIP/ATM</h2>
+        <p><strong>El problema:</strong> el banco te da el resumen de cuenta en PDF, y
+            AFIP o ATM te dan en PDF la declaración jurada, la deuda o el plan de pago.
+            Para trabajar esos números necesitás la tabla en Excel, y copiarla a mano
+            lleva tiempo y se presta a errores.</p>
+        <p>Esta herramienta <strong>saca las tablas del PDF</strong> y arma un Excel con
+            ellas. No pide claves ni entra a ninguna página: todo pasa en tu compu.</p>
+
+        <h3>Qué PDF entiende</h3>
+        <p>La aplicación mira el PDF y reconoce sola de qué tipo es. Cada tipo tiene la
+            tabla armada a su manera, así que solo funciona bien con los que ya conoce:</p>
+        <ul>
+            <li><strong>Resúmenes de cuenta de bancos.</strong> Por ejemplo: Nación,
+                Galicia, Macro, Santander, BBVA, Credicoop y Supervielle. Saca la tabla de
+                <strong>movimientos</strong>. Solo resúmenes de cuenta: otros PDF del banco
+                (constancias, certificados) no.</li>
+            <li><strong>AFIP:</strong> la DDJJ de cargas sociales (F.931), la DDJJ de IVA
+                (F.2002 y la nueva F.2051, "IVA Simple"), el detalle de deuda impaga, los
+                detalles de planes de pago (cuotas, pagos e imputaciones) y la condonación
+                de deudas.</li>
+            <li><strong>ATM:</strong> la constancia de situación fiscal (con su deuda) y
+                el plan de pago.</li>
+        </ul>
+        <p>Si el PDF no es de ninguno de estos, la aplicación prueba con un método
+            general: a veces sale bien y a veces no. Un banco que no está en la lista
+            puede no salir, porque cada banco arma su tabla distinto.</p>
+        <div class="tip importante"><strong>Los PDF escaneados no sirven.</strong> La
+            aplicación lee el texto del PDF, y un escaneo (una foto del papel) no tiene
+            texto: es solo una imagen. Para saberlo, abrí el PDF y tratá de seleccionar una
+            palabra con el mouse: si se puede, sirve.</div>
+
+        <h3>Un PDF (modo individual)</h3>
+        <ol>
+            <li>Hacé clic en el botón <strong>PDF</strong> de la barra de arriba. Se abre
+                <strong>Procesar PDF Individual</strong>.</li>
+            <li>Hacé clic en <strong>Seleccionar PDF</strong> y elegí el archivo.</li>
+            <li>Hacé clic en <strong>Procesar PDF</strong>.</li>
+            <li>Si salió bien, aparece <strong>¡PDF procesado exitosamente!</strong> y el
+                recuadro <strong>Excel generado</strong>, con los botones
+                <strong>Abrir archivo</strong> y <strong>📁 Mostrar en la
+                carpeta</strong>.</li>
+        </ol>
+        <figure>
+            <img src="capturas/app/pdf_excel_generado.png"
+                 alt="Pantalla Procesar PDF Individual con un PDF de ejemplo elegido, el mensaje PDF procesado exitosamente y el recuadro Excel generado con los botones Abrir archivo y Mostrar en la carpeta.">
+            <figcaption>Después de <strong>Procesar PDF</strong>: el recuadro
+                <strong>Excel generado</strong> muestra el nombre del archivo, la carpeta
+                y los botones para abrirlo.</figcaption>
+        </figure>
+        <p>El Excel queda <strong>en la misma carpeta que el PDF</strong>. Algunos
+            formularios salen con varias hojas, una por tabla.</p>
+
+        <h3>Muchos PDF juntos (modo grupo)</h3>
+        <ol>
+            <li>Poné todos los PDF en una carpeta.</li>
+            <li>En la pantalla <strong>PDF</strong>, abajo, hacé clic en
+                <strong>Cambiar a Modo Grupo</strong>. El título cambia a
+                <strong>Procesar por Grupo</strong>.</li>
+            <li>Hacé clic en <strong>Seleccionar Carpeta</strong> y elegí la carpeta.</li>
+            <li>Hacé clic en <strong>Convertir</strong>.</li>
+            <li>Al terminar aparece <strong>Procesamiento completado: X de Y archivos
+                convertidos exitosamente</strong> y una línea por archivo con
+                <strong>✓ Éxito</strong> (y sus botones <strong>Abrir archivo</strong> y
+                <strong>📁 Carpeta</strong>) o <strong>✗ Error</strong> con el motivo.</li>
+        </ol>
+        <figure>
+            <img src="capturas/app/pdf_modo_grupo.png"
+                 alt="Pantalla Procesar por Grupo con los botones Seleccionar Carpeta, Convertir (todavía apagado) y Cambiar a Modo Individual.">
+            <figcaption>El modo grupo. <strong>Convertir</strong> se prende recién
+                cuando elegiste la carpeta.</figcaption>
+        </figure>
+        <p>Cada Excel queda al lado de su PDF. Solo toma los PDF que están sueltos en esa
+            carpeta, <strong>no</strong> los que están adentro de subcarpetas. Para volver,
+            hacé clic en <strong>Cambiar a Modo Individual</strong>.</p>
+        <div class="tip">¿Tenés los resúmenes del mes de muchos clientes? Juntalos en
+            una carpeta y usá el modo grupo: los procesa todos de una vez y te dice cuáles
+            no pudo.</div>
+
+        <h3>Antes de usar el Excel</h3>
+        <div class="tip">Revisá que los totales del Excel coincidan con los del PDF, sobre
+            todo la primera vez que usás un banco o un formulario nuevo. Si no coinciden, el
+            PDF tiene un formato que la aplicación todavía no conoce bien.</div>
+    </section>
+
+    <section id="plantillas-excel"
+             data-claves="plantilla, plantillas, excel, modelo, planilla, procesar excel, resumen de conceptos, conceptos facturados, neto, iva, actividad, totales diarios, ventas diarias, ventas del mes, avisos, controles, xls, xlsx, guardar como">
+        <h2>12. Plantillas Excel</h2>
+        <p><strong>El problema:</strong> un cliente te manda todos los meses el mismo
+            Excel, armado a su manera, y vos siempre le hacés el mismo trabajo a mano para
+            sacar los totales. Una <strong>plantilla</strong> hace ese trabajo sola.</p>
+        <p>No pide claves ni entra a ninguna página: todo pasa en tu compu. Se abre con el
+            botón <strong>Plantillas Excel</strong> de la barra de arriba.</p>
+        <div class="aviso"><strong>El Excel original no se toca.</strong> La aplicación
+            crea un archivo nuevo en la misma carpeta, con el nombre del original y un
+            agregado al final. Si ya existe uno con ese nombre, no lo pisa: le agrega
+            "(2)", "(3)", etc.</div>
+
+        <h3>Las plantillas que hay</h3>
+        <p><strong>🧾 Resumen de conceptos facturados.</strong> Toma la grilla de ítems
+            facturados y arma un resumen de <strong>Neto</strong> e <strong>IVA</strong>
+            por actividad y por tipo de comprobante.</p>
+        <ul>
+            <li>El Excel tiene que tener estas columnas: <strong>Año - mes</strong>,
+                <strong>Comprobante</strong>, <strong>Conc./Art.</strong>,
+                <strong>Descripción</strong>, <strong>Neto Ítem</strong> e <strong>IVA
+                Insc. Ítem</strong>.</li>
+            <li>Agrega una hoja <strong>Resumen</strong> (una por mes si el archivo trae
+                varios). Las celdas quedan con fórmulas: si cambiás un dato, el resumen se
+                actualiza.</li>
+            <li>Trae <strong>controles</strong> que tienen que dar diferencia 0. Si no dan 0,
+                no genera nada: es señal de que algo del archivo no cierra.</li>
+            <li>El archivo sale como <strong>"&lt;original&gt; - Resumen AAAA-MM.xlsx"</strong>.</li>
+        </ul>
+        <p><strong>📅 Totales diarios.</strong> Toma las ventas del mes cargadas a mano
+            (una columna por día, o pares FECHA | IMPORTE) y da el total de cada día.</p>
+        <ul>
+            <li>Sale como <strong>"&lt;original&gt; - procesado.xlsx"</strong>, con la hoja
+                <strong>Totales</strong> (FECHA | MONTO), la hoja <strong>Datos</strong>
+                (lo original, con las celdas sospechosas marcadas) y, si hace falta, la hoja
+                <strong>Avisos</strong>.</li>
+            <li>Avisa los posibles <strong>errores de carga</strong>: un ticket mucho más
+                grande que lo normal del mes (por ejemplo, un cero de más), un día con un
+                total muy alto o muy bajo, o un día de lunes a sábado sin ventas.</li>
+            <li>Si no puede saber con seguridad si las fechas son día/mes o mes/día, no
+                genera nada.</li>
+        </ul>
+        <div class="tip importante"><strong>Totales diarios nunca corrige un monto
+            solo.</strong> Lo marca y te avisa; la corrección la hacés vos en el Excel
+            original, y después lo volvés a procesar.</div>
+
+        <h3>Cómo se usa</h3>
+        <figure>
+            <img src="capturas/app/plantillas_pantalla.png"
+                 alt="Pantalla Plantillas Excel: arriba el botón Procesar Excel; abajo, bajo el título O elegí una plantilla a mano, los botones Resumen de conceptos facturados y Totales diarios, cada uno con su descripción.">
+            <figcaption>Los dos caminos: <strong>📂 Procesar Excel</strong> (la aplicación
+                elige la plantilla) o el botón de cada plantilla.</figcaption>
+        </figure>
+        <p>La forma más fácil es dejar que la aplicación elija:</p>
+        <ol>
+            <li>Hacé clic en <strong>📂 Procesar Excel</strong> y elegí el Excel del
+                cliente.</li>
+            <li>La aplicación mira las columnas y busca qué plantilla le corresponde:
+                <ul>
+                    <li>Si sirve para <strong>una</strong>, la ejecuta directamente.</li>
+                    <li>Si sirve para <strong>varias</strong>, pregunta <strong>"¿Qué querés
+                        generar?"</strong> y elegís una.</li>
+                    <li>Si no sirve para <strong>ninguna</strong>, aparece
+                        <strong>"Ninguna plantilla reconoce este archivo"</strong> y te dice
+                        cuál se parece más.</li>
+                </ul>
+            </li>
+        </ol>
+        <p>Si ya sabés cuál querés, abajo dice <strong>"O elegí una plantilla a
+            mano"</strong>: hacé clic en el botón de la plantilla y elegí el archivo.</p>
+
+        <h3>El resultado</h3>
+        <p>Si salió bien, aparece <strong>"✅ &lt;nombre de la plantilla&gt;:
+            listo"</strong> con:</p>
+        <ul>
+            <li>El recuadro <strong>Excel generado</strong>, con los botones
+                <strong>Abrir archivo</strong> y <strong>📁 Mostrar en la
+                carpeta</strong>.</li>
+            <li>La línea <strong>Controles</strong>, con lo que se verificó.</li>
+            <li>La lista de avisos, cada uno con su nivel. En Totales diarios:
+                <ul>
+                    <li><strong>Grave</strong>: un monto más de 10 veces mayor que el típico
+                        del mes, un día que vende más del triple de lo normal, o una celda
+                        que no se pudo leer y <strong>no se sumó</strong>.</li>
+                    <li><strong>Revisar</strong>: un día con menos de un tercio de lo normal,
+                        o una duda con una fecha (por ejemplo, la misma fecha en dos
+                        columnas).</li>
+                    <li><strong>Info</strong>: un día de lunes a sábado sin ventas, o una
+                        fórmula de suma, que no se cuenta como venta.</li>
+                </ul>
+            </li>
+        </ul>
+        <figure>
+            <img src="capturas/app/plantillas_resultado.png"
+                 alt="Resultado de Totales diarios: el mensaje Totales diarios listo con el total del mes, el recuadro Excel generado con los botones Abrir archivo y Mostrar en la carpeta, la línea Controles con diferencia 0,00, un aviso Grave por un posible cero de más y dos avisos Info por días sin ventas.">
+            <figcaption>Un resultado de <strong>📅 Totales diarios</strong>. El aviso
+                <strong>Grave</strong> marca un monto 17 veces más grande que lo normal y
+                sugiere el valor probable. (Recortada: el archivo real tenía más avisos
+                Info.)</figcaption>
+        </figure>
+        <div class="tip">Leé siempre los avisos antes de usar los totales. Un
+            <strong>Grave</strong> revisalo sí o sí: puede ser un error de carga, una venta
+            alta de verdad, o un monto que quedó afuera del total.</div>
+        <p>Si algo falla, aparece <strong>"❌ … no se generó el archivo"</strong> con el
+            motivo. Los más comunes:</p>
+        <ul>
+            <li><strong>El archivo es .xls (formato viejo de Excel).</strong> Solo se
+                aceptan .xlsx.</li>
+            <li>El archivo está dañado o tiene contraseña: abrilo en Excel, sacale la
+                contraseña y guardalo de nuevo.</li>
+        </ul>
+        <div class="tip importante"><strong>Solo acepta archivos .xlsx.</strong> Si tenés
+            un .xls viejo, abrilo en Excel, usá <strong>"Guardar como" → "Libro de Excel
+            (.xlsx)"</strong> y procesá ese.</div>
+        <div class="tip">Si ninguna plantilla reconoce el archivo, fijate los nombres de
+            las columnas: a veces el cliente cambió uno. Las plantillas están hechas para
+            formatos concretos; para un formato nuevo hay que programar una plantilla
+            nueva.</div>
+    </section>
+
+    <!-- ===================== PARTE 5 ===================== -->
+
+    <section id="problemas"
+             data-claves="error, no anda, falla, se colgó, colgada, trabada, cancelar, navegador cerrado, cerré el navegador, captcha, bloqueo, salteado, timeout, tarda, clave incorrecta, clave atm incorrecta, cambiar clave, actualizar clave, chrome, edge, no abre, instalar navegador, historial, historial de acciones, logs, registro, pedir ayuda, soporte">
+        <h2>13. Problemas comunes</h2>
+        <p>Lo que puede pasar al usar la aplicación, qué vas a ver y qué hacer.</p>
+
+        <h3>"Parece que se colgó"</h3>
+        <p>Mientras un servicio trabaja, abajo en el centro aparece un cartel con el
+            cliente y lo que está haciendo, y la frase <strong>"No se colgó: está
+            trabajando."</strong> Algunos pasos de AFIP o ATM tardan: esperá.</p>
+        <figure>
+            <img src="capturas/ventanas/rueda_trabajando.png"
+                 alt="Cartel de trabajo: ARCA, Datos registrales, 2 de 5; el cliente con su CUIT; Iniciando sesión; y abajo No se colgó: está trabajando.">
+            <figcaption>El cartel mientras trabaja: servicio, cuántos van, cliente y
+                paso actual.</figcaption>
+        </figure>
+        <p>Si querés cortarlo, el botón que tocaste para arrancar pasa a decir
+            <strong>Cancelar</strong> (en rojo). Al tocarlo, la aplicación cierra el navegador y el
+            botón dice <strong>Cancelando…</strong> hasta que termina de frenar.</p>
+        <div class="tip">El análisis de clientes (<a href="#analizar">sección 7</a>) es la
+            excepción: no se puede cancelar a mitad.</div>
+
+        <h3>Cerré el navegador sin querer</h3>
+        <p>Si cerrás la ventana del navegador mientras la aplicación trabaja, el resultado
+            dice <strong>"Se cerró el navegador antes de terminar"</strong>. No es una falla
+            de AFIP ni de la clave: volvé a ejecutar el servicio.</p>
+
+        <h3>AFIP pidió un captcha</h3>
+        <p>A veces AFIP muestra un captcha al iniciar sesión. Qué pasa depende de <strong>Mostrar navegador</strong>:</p>
+        <ul>
+            <li><strong>Prendido:</strong> la aplicación te espera <strong>hasta 3
+                minutos</strong> para que lo resuelvas a mano en la ventana del navegador, y
+                después sigue sola.</li>
+            <li><strong>Apagado:</strong> no lo podés ver, así que corta y avisa:
+                <strong>"AFIP pidió un captcha y el navegador está oculto. Reintentá con
+                "Mostrar navegador" activado para resolverlo a mano. No indica que la clave sea
+                inválida."</strong></li>
+        </ul>
+        <p>Cuando AFIP pide captcha, suele bloquear los ingresos desde tu conexión por
+            unos <strong>15 minutos</strong>. Por eso, en un trabajo con varios clientes, la
+            aplicación saltea el resto y cada uno queda con <strong>"Salteado: AFIP pidió
+            captcha (bloqueo temporal por IP, ~15 min). Reintentá este cliente más
+            tarde."</strong></p>
+        <div class="tip importante"><strong>Un captcha no quiere decir que la clave esté
+            mal.</strong> Esperá un rato y volvé a probar con esos clientes.</div>
+        <p>Algo parecido pasa si AFIP tarda demasiado en contestar (el mensaje dice
+            <strong>Timeout</strong>): es AFIP que está lenta, no tu clave. Probá más
+            tarde.</p>
+
+        <h3>Problemas con la clave</h3>
+        <ul>
+            <li><strong>Clave incorrecta.</strong> En AFIP aparece el mensaje de la misma
+                página de AFIP; en ATM, <strong>"Clave ATM incorrecta"</strong>. Pedile la
+                clave al cliente y corregila (ver <a href="#validar">sección 4</a>).</li>
+            <li><strong>AFIP pide cambiar la clave.</strong> Aparece <strong>"AFIP requiere
+                que el cliente actualice su clave fiscal antes de operar."</strong> Entrá a
+                AFIP a mano con ese CUIT, cambiá la clave, cargá la nueva en la aplicación y
+                volvé a intentar.</li>
+            <li><strong>ATM pide cambiar la clave.</strong> La aplicación lo resuelve sola:
+                la renueva poniendo <strong>la misma clave</strong>, así que no tenés que
+                cambiar nada. Si no puede, aparece <strong>"ATM pidió cambiar la clave y no
+                se pudo"</strong>: entrá a ATM a mano y hacé el cambio vos.</li>
+        </ul>
+
+        <h3>No abre el navegador</h3>
+        <p>La aplicación usa el Chrome o el Edge de la compu. Si no encuentra ninguno,
+            aparece <strong>"Instala Google Chrome o Microsoft Edge para usar esta
+            aplicación."</strong> Instalá uno de los dos y volvé a probar.</p>
+        <p>Si lo que no abre (o tarda) es la aplicación misma, mirá la
+            <a href="#instalacion">sección 2</a>.</p>
+
+        <h3>Dónde ver qué pasó</h3>
+        <ul>
+            <li><strong>Historial</strong> (botón de la barra de arriba): abre
+                <strong>Historial de acciones</strong>, una tabla con Fecha, Servicio,
+                Estado, Cliente y Detalle. Se puede buscar por cliente, CUIT o resumen,
+                y filtrar por servicio y por estado (Éxito, Error, Sin deuda,
+                Parcial). Si no aparece lo último, tocá <strong>⟳ Refrescar</strong>. <strong>No
+                registra todo:</strong> Consulta de comprobantes, PDF a Excel y Plantillas
+                Excel no quedan anotados. Y algunos servicios, como Apremios o Datos
+                registrales, se ven en <strong>Todos los servicios</strong> pero no tienen
+                opción propia en el filtro.</li>
+            <li><strong>📄 Abrir logs</strong> (en el botón 📁 de la barra, ver
+                <a href="#instalacion">sección 2</a>): el registro detallado de lo que hizo
+                la aplicación, un archivo por día. Se guardan los últimos 30 días. Las
+                claves aparecen tapadas con <code>***</code>.</li>
+        </ul>
+        <figure>
+            <img src="capturas/app/historial_acciones.png"
+                 alt="Pantalla Historial de acciones: botón Refrescar, buscador por cliente, CUIT o resumen, filtros Todos los servicios y Todos los estados, el total de acciones y los títulos de la tabla Fecha, Servicio, Estado, Cliente y Detalle.">
+            <figcaption>El <strong>Historial de acciones</strong>, con el buscador y los
+                filtros arriba de la tabla.</figcaption>
+        </figure>
+        <div class="tip">¿Algo falló y no sabés por qué? Anotá la hora y el cliente, y
+            mandá el archivo de log de ese día a quien te da soporte: ahí queda cada paso
+            que hizo la aplicación.</div>
+    </section>
+
+    <!-- Más adelante (no entra en esta primera versión): fichas de cada servicio con el
+         molde "problema → cómo → resultado": facturación, Factura Tipificada, Facturar
+         desde Excel, Declaración Jurada, DDJJ pendientes, DDJJ descargas, Portal IVA,
+         Plan de Pagos, VEP, Tasa Cero, Tablas PDF, Plantillas Excel. -->
+
+    <footer class="pie">Manual de Escritorio Contable, por Luis Alberto Espinoza. Licencia
+        <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.es" rel="license">CC BY-SA 4.0</a>.
+        El logo y las páginas de ATM pertenecen a sus dueños.</footer>
+
+</main>
+
+<!-- La barra de tips se arma sola (manual.js) con los <div class="tip"> del texto.
+     Para agregar un tip, escribilo en su lugar dentro de la sección; no acá. -->
+<aside class="lateral lateral-der" id="lateralDer" aria-label="Tips">
+    <div class="tips" id="tips">
+        <p class="indice-titulo">Tips</p>
+    </div>
+</aside>
+
+</div>
+<script src="manual.js"></script>
+<script src="tutoriales.js"></script>
+</body>
+</html>
