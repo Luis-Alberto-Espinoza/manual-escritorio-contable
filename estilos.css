@@ -476,6 +476,14 @@ body.con-visor { overflow: hidden; }
     margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--borde);
     color: var(--gris); font-size: 0.85rem;
 }
+/* Enlace al perfil del autor, resaltado como botón. */
+.pie-github {
+    display: block; width: fit-content; margin: 16px auto 0; padding: 10px 22px;
+    border: 2px solid var(--violeta); border-radius: 8px;
+    background: var(--violeta-claro); color: var(--texto);
+    font-size: 1.1rem; font-weight: 700; text-decoration: none;
+}
+.pie-github:hover, .pie-github:focus-visible { background: var(--violeta); color: var(--fondo); }
 
 @media print {
     /* Al imprimir vuelve a claro: fondo blanco y texto negro. */
