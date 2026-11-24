@@ -97,6 +97,62 @@ const TUTORIALES = [
                 marcas: [{ x: 33.4, y: 49.9, w: 13, h: 5.5 }]
             }
         ]
+    },
+    {
+        id: 'apremios',
+        titulo: 'Consultar apremios en ATM',
+        pasos: [
+            {
+                img: 'capturas/app/inicio_menu_atm.png',
+                alt: 'Menú ATM desplegado, con la opción Apremios al final.',
+                texto: 'Hacé clic en <strong>ATM ▾</strong>, en el menú de arriba, y después en <strong>Apremios</strong>.',
+                marcas: [{ x: 20.7, y: 5.1, w: 10, h: 8 }, { x: 29.3, y: 58.9, w: 25, h: 7.5 }]
+            },
+            {
+                img: 'capturas/app/apremios_paso_clientes.png',
+                alt: 'Lista de clientes con Rivadavia y Urquiza elegidos, con un tilde a la izquierda.',
+                texto: 'Se abre <strong>Servicios de ATM</strong>. Bajá hasta la lista de clientes y hacé clic en ' +
+                       'los que quieras consultar: uno o varios. Los elegidos quedan con un tilde.',
+                marcas: [{ x: 50, y: 50.6, w: 92.5, h: 19.4 }]
+            },
+            {
+                img: 'capturas/app/apremios_paso_sin_impuestos.png',
+                alt: 'Tabla Impuestos a consultar por cliente sin ninguna casilla tildada y los nombres en rojo.',
+                texto: 'Más abajo está <strong>Impuestos a consultar por cliente</strong>. Cada cliente arranca ' +
+                       'sin ninguno marcado, y <strong>su nombre se ve en rojo</strong> hasta que le marques uno.',
+                marcas: [{ x: 17, y: 59, w: 23, h: 10 }]
+            },
+            {
+                img: 'capturas/app/apremios_paso_impuestos.png',
+                alt: 'La misma tabla con impuestos tildados para los dos clientes y el botón Procesar Apremios (2).',
+                texto: 'Marcá los impuestos de cada cliente (<strong>Todos</strong> marca los cinco). Después hacé ' +
+                       'clic en <strong>Procesar Apremios</strong>; el número es la cantidad de clientes.',
+                marcas: [{ x: 61.5, y: 59, w: 65, h: 10 }, { x: 82.6, y: 83, w: 23, h: 9 }]
+            },
+            {
+                img: 'capturas/ventanas/apremios_paso_confirmacion.png',
+                alt: 'Ventana Apremios con los dos clientes, sus impuestos y los botones Cancelar e Iniciar.',
+                texto: 'Antes de arrancar te muestra cada cliente con sus impuestos. Si está bien, hacé clic en ' +
+                       '<strong>Iniciar</strong>.',
+                marcas: [{ x: 69.5, y: 71.1, w: 13.5, h: 9 }]
+            },
+            {
+                img: 'capturas/ventanas/apremios_paso_trabajando.png',
+                alt: 'Cartel ATM Apremios, 1 de 2, con el cliente y el mensaje Consultando Ingresos Brutos.',
+                texto: 'La aplicación entra sola a ATM. El cartel de abajo dice qué cliente está haciendo y ' +
+                       'cuántos van. <strong>Esperá</strong>: no hay que hacer nada. Solo consulta, no paga ni ' +
+                       'cambia nada.',
+                marcas: [{ x: 50, y: 86.8, w: 55, h: 22 }]
+            },
+            {
+                img: 'capturas/app/apremios_paso_resultado.png',
+                alt: 'Finalizados: Rivadavia con Éxito, una línea por impuesto, el Excel y el botón Abrir.',
+                texto: 'Cada cliente pasa a <strong>Finalizados</strong>, con una línea por impuesto: en naranja, ' +
+                       'los que tienen saldo. Con <strong>Abrir</strong> ves el Excel con el detalle. ' +
+                       'Si algo falló, mirá la <a href="#apremios">sección 10, ATM: Apremios</a>.',
+                marcas: [{ x: 24.5, y: 35.8, w: 38, h: 9 }, { x: 88.2, y: 46.8, w: 9, h: 7.5 }]
+            }
+        ]
     }
 ];
 
